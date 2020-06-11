@@ -1,26 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { handleLogin } from '../../auth/handleAuthentication'
+import { Route, Redirect } from 'react-router-dom'
 
-export const Login = () => {
+export const Login = ({ url, handleRedirect }:{url: string; handleRedirect: any}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [response, setResponse] = useState<any>()
 
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>, u:string, p:string) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>, url:string, u:string, p:string) => {
     e.preventDefault()
-    handleLogin(u, p)
+    return await handleLogin(url, u, p)
   }
 
   return (
     <div data-testid='login'>
-      <form data-testid='form' onSubmit={(e) => handleSubmit(e, email, password)}>
+      <form data-testid='form' onSubmit={
+        async (e) => {
+          setResponse('loading...')
+          const result = await handleSubmit(e, url, email, password)
+          setResponse(result)
+          console.log(result)
+          if (result === 'success') handleRedirect('dashboard')
+        }
+      }>
         <input type='text' placeholder='email' onChange={(e) => { setEmail(e.target.value) }}/>
         {/* TODO: sanitise! */}
-        <input type='text' placeholder='password' onChange={(e) => { setPassword(e.target.value) }}/>
+        <input type='password' placeholder='password' onChange={(e) => { setPassword(e.target.value) }}/>
         <input data-testid='submit' type='submit'/>
       </form>
       {email}
       {password}
+      {response}
     </div>
   )
 }
