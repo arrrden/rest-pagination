@@ -4,15 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: './src/index.js',
+    app: './src/index',
   },
-  // plugins: [
-  //   // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
-  //   new CleanWebpackPlugin(),
-  //   new HtmlWebpackPlugin({
-  //     title: 'Production',
-  //   }),
-  // ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
+  },
   module: {
     rules: [
       {
