@@ -10,4 +10,5 @@ This is an attempt to complete [Monzo's web engineering take home challenge](htt
 
 ## TODOS: 
 - Sanitise login 
+- validate data
 - Secure access token 
