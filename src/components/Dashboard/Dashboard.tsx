@@ -4,7 +4,7 @@ import { fetchApps, getUsers } from './handlers'
 
 import { UserPage } from './useList'
 
-export const Dashboard = ({ url }:{url: string }) => {
+export const Dashboard = ({ url, currentUser }:{url: string, currentUser: string }) => {
   const [apps, setApps] = useState<any>([])
   const token = () => localStorage.getItem('token') || 'error'
 
@@ -23,7 +23,7 @@ export const Dashboard = ({ url }:{url: string }) => {
 
   return (
     <div data-testid='dashboard'>
-      <h1>{'hey, ...you'}</h1>
+      <h1>{currentUser === '' ? `There was an error logging in` : `${currentUser}: Dashboard`}</h1>
       {
         !apps?.error ? apps?.length > 0 ? apps.map((i: any, index: number) => <AppItem key={index} url={url} appId={i.id} name={i.name} picture={i.logo} date={i.date} token={token()}/>) : 'loading...' : 'error fetching data'
       }

@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import { handleLogin } from '../../auth/handleAuthentication'
 
-export const Login = ({ url, handleRedirect }:{url: string; handleRedirect: any}) => {
+export const Login = ({ url, handleRedirect, setCurrentUser }:{url: string; handleRedirect: any, setCurrentUser: any}) => {
   const history = useHistory()
   const location = useLocation()
   const [email, setEmail] = useState('')
@@ -17,6 +17,7 @@ export const Login = ({ url, handleRedirect }:{url: string; handleRedirect: any}
     e.preventDefault()
     const result = await handleLogin(url, u, p)
     setResponse(result)
+    setCurrentUser(email)
     console.log('result: ', result)
     if (result === 'success') { history.replace(from) }
   }

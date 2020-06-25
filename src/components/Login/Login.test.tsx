@@ -36,7 +36,7 @@ afterAll(() => server.close())
 const setup = () => {
   const history = createMemoryHistory()
   const utils = render(
-    <Router history={history}><Login url={ENDPOINT} handleRedirect={handleRedirect}/></Router>
+    <Router history={history}><Login url={ENDPOINT} handleRedirect={handleRedirect} setCurrentUser={''}/></Router>
   )
   const form = utils.getByTestId(/login/i)
   const email = utils.getByPlaceholderText(/email/i)
@@ -55,7 +55,7 @@ describe('When in view', () => {
   test('it renders', () => {
     const history = createMemoryHistory()
     const { getByTestId } = render(
-      <Router history={history}><Login url={ENDPOINT} handleRedirect={handleRedirect}/></Router>
+      <Router history={history}><Login url={ENDPOINT} handleRedirect={handleRedirect} setCurrentUser={''}/></Router>
     )
     expect(getByTestId(/login/i)).toBeInTheDocument()
   })

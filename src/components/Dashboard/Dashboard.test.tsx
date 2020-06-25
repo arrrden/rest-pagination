@@ -39,7 +39,7 @@ afterAll(() => server.close())
 const setup = () => {
   const history = createMemoryHistory()
   const utils = render(
-    <Router history={history}><Dashboard url={ENDPOINT}/></Router>
+    <Router history={history}><Dashboard url={ENDPOINT} currentUser={''}/></Router>
   )
   const dashboard = utils.getByTestId(/dashboard/i)
   const card = utils.getAllByTestId(/card/i)
@@ -55,7 +55,7 @@ describe('When in view', () => {
     const history = createMemoryHistory()
     act(() => {
       render(
-        <Router history={history}><Dashboard url={ENDPOINT}/></Router>
+        <Router history={history}><Dashboard url={ENDPOINT} currentUser={''}/></Router>
       )
     })
     expect(screen.getByTestId(/dashboard/i)).toBeInTheDocument()
